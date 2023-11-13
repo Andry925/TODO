@@ -1,4 +1,4 @@
-{% extends 'to_do_list/base.html' %} 
+{% extends 'to_do_list/base.html' %}
 
 {% load static %} 
 
@@ -27,7 +27,7 @@
     padding: 1.375rem 0.75rem !important;
   }
 </style>
-{% endblock %}
+{% endblock %} 
 
 {% block content %}
 <div class="container">
@@ -37,56 +37,72 @@
     <p class="text-muted">{% now "jS F Y" %}</p>
     <div class="col-md-7 col-lg-7" style="height: 450px; overflow: scroll">
       <!-- List of all the tasks for the day -->
-      {% for data in all_data %}
-      
-      {% if not data.task_is_completed %}
+      {% for data in all_data %} {% if not data.task_is_completed %}
       <div class="card m-1">
         <div class="card-body">
-         {{data}}
+          {{data}}
           <span style="position: relative; float: right">
             <a class="btn btn-success"
               ><i class="fa fa-check"></i> Mark as Done</a
             >
-            <a href = "{% url 'delete_task' data.pk %}"class="btn btn-danger"><i class="fa fa-trash"></i></a>
-            <a class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+            <a href="{% url 'delete_task' data.pk %}" class="btn btn-danger"
+              ><i class="fa fa-trash"></i
+            ></a>
+            <a href="{% url 'change_task' data.pk %}" class="btn btn-primary"
+              ><i class="fa fa-pencil"></i
+            ></a>
           </span>
         </div>
       </div>
-      {% endif %}
+      {% endif %} 
+      
       {% endfor %}
     </div>
-    
+
     <div class="col-md-5 col-lg-5">
       <h5>Completed Tasks</h5>
       <!-- List of all the tasks that have completed -->
-      {% for some in all_data %}
-    {% if some.task_is_completed %}
-    <div class="card m-1">
-      <div class="card-body">
-        {{ some }}
-        <span style="position: relative; float: right">
-          <a class="btn btn-success"><i class="fa fa-check"></i>Restore</a>
-        </span>
-      </div>
-    </div>
- {% endif %}
-{% endfor %}
-  </div>
-  
-  <div class="row">
-    <div class="col-md-6 col-lg-6 p-0" style="position: absolute; bottom: 50px">
-      <!-- To Do Form -->
-      <form action="{% url 'add_new_task' %}" method="POST">
-        {% csrf_token %}
-        <div class="form-group">
-          <span style="display: flex">
-            <input type="text" name="add_a_task" class="form-control" placeholder="Add a task" />
-            <button type ="submit" class="btn btn-primary" style="width: 200px">
-              <i class="fa fa-plus"></i> Add
-            </button>
+      {% for some in all_data %} {% if some.task_is_completed %}
+      <div class="card m-1">
+        <div class="card-body">
+          {{ some }}
+          <span style="position: relative; float: right">
+            <a class="btn btn-success"><i class="fa fa-check"></i>Restore</a>
           </span>
         </div>
-      </form>
+      </div>
+      {% endif %} 
+      
+      {% endfor %}
+    </div>
+
+    <div class="row">
+      <div
+        class="col-md-6 col-lg-6 p-0"
+        style="position: absolute; bottom: 50px"
+      >
+        <!-- To Do Form -->
+        <form action="{% url 'add_new_task' %}" method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <span style="display: flex">
+              <input
+                type="text"
+                name="add_a_task"
+                class="form-control"
+                placeholder="Add a task"
+              />
+              <button
+                type="submit"
+                class="btn btn-primary"
+                style="width: 200px"
+              >
+                <i class="fa fa-plus"></i> Add
+              </button>
+            </span>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
