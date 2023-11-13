@@ -38,9 +38,11 @@
     <div class="col-md-7 col-lg-7" style="height: 450px; overflow: scroll">
       <!-- List of all the tasks for the day -->
       {% for data in all_data %}
+      
+      {% if not data.task_is_completed %}
       <div class="card m-1">
         <div class="card-body">
-         
+         {{data}}
           <span style="position: relative; float: right">
             <a class="btn btn-success"
               ><i class="fa fa-check"></i> Mark as Done</a
@@ -50,20 +52,27 @@
           </span>
         </div>
       </div>
+      {% endif %}
       {% endfor %}
     </div>
+    
     <div class="col-md-5 col-lg-5">
       <h5>Completed Tasks</h5>
       <!-- List of all the tasks that have completed -->
-      <div class="card m-1">
-        <div class="card-body">This is the completed task.</div>
+      {% for some in all_data %}
+    {% if some.task_is_completed %}
+    <div class="card m-1">
+      <div class="card-body">
+        {{ some }}
         <span style="position: relative; float: right">
-          <a class="btn btn-success"
-            ><i class="fa fa-check"></i>Restore</a
-          >
+          <a class="btn btn-success"><i class="fa fa-check"></i>Restore</a>
+        </span>
       </div>
     </div>
+ {% endif %}
+{% endfor %}
   </div>
+  
   <div class="row">
     <div class="col-md-6 col-lg-6 p-0" style="position: absolute; bottom: 50px">
       <!-- To Do Form -->
