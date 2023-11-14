@@ -42,7 +42,7 @@
         <div class="card-body">
           {{data}}
           <span style="position: relative; float: right">
-            <a class="btn btn-success"
+            <a href = "{% url 'mark_task' data.id %}" class="btn btn-success"
               ><i class="fa fa-check"></i> Mark as Done</a
             >
             <a href="{% url 'delete_task' data.pk %}" class="btn btn-danger"
@@ -62,7 +62,9 @@
     <div class="col-md-5 col-lg-5">
       <h5>Completed Tasks</h5>
       <!-- List of all the tasks that have completed -->
-      {% for some in all_data %} {% if some.task_is_completed %}
+      {% for some in all_data %} 
+      
+      {% if some.task_is_completed %}
       <div class="card m-1">
         <div class="card-body">
           {{ some }}

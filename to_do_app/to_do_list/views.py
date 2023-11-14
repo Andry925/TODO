@@ -26,19 +26,18 @@ def delete_task(request, pk):
 def change_task(request, pk):
     task_to_display = get_object_or_404(Tasks, pk=pk)
     if request.method == "POST":
-        data_from_form = request.POST['edited_task']
+        data_from_form = request.POST["edited_task"]
         task_to_display.task = data_from_form
         task_to_display.save()
         return redirect("home")
     context = {
-        "task_to_display":task_to_display
+        "task_to_display": task_to_display
     }
-    return render(request, "to_do_list/edit_task.html",context)
+    return render(request, "to_do_list/edit_task.html", context)
 
 
-
-    
-   
-    
-
-        
+def mark_task(request, pk):
+    done_task = get_object_or_404(Tasks, pk=pk)
+    done_task.task_is_completed = True
+    done_task.save()
+    return redirect("home")
