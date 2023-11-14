@@ -24,9 +24,21 @@ def delete_task(request, pk):
 
 
 def change_task(request, pk):
-    if request.method == "GET":
-        task_to_dispay = get_object_or_404(Tasks, pk=pk)
-        context = {
-            "task_to_display": task_to_dispay
-        }
-        return render(request, "to_do_list/edit_task.html", context)
+    task_to_display = get_object_or_404(Tasks, pk=pk)
+    if request.method == "POST":
+        data_from_form = request.POST['edited_task']
+        task_to_display.task = data_from_form
+        task_to_display.save()
+        return redirect("home")
+    context = {
+        "task_to_display":task_to_display
+    }
+    return render(request, "to_do_list/edit_task.html",context)
+
+
+
+    
+   
+    
+
+        
